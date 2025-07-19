@@ -1,0 +1,30 @@
+name: Build macOS App
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-mac:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyinstaller cryptography
+
+      - name: Build app
+        run: pyinstaller --onefile --windowed secure_message_gui.py
+
+      - name: Upload .app
+        uses: actions/upload-artifact@v3
+        with:
+          name: macOS-app
+          path: dist/*
