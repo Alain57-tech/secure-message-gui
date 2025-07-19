@@ -25,7 +25,7 @@ jobs:
 
       - name: 🏗️ Build macOS app
         run: |
-          pyinstaller --windowed --name "SecureMessenger" secure_message_gui.py
+          pyinstaller --windowed --name "SecureMessenger" secure-message-gui.py
 
       - name: 📤 Upload .app bundle
         uses: actions/upload-artifact@v4
