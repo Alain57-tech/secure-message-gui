@@ -1,30 +1,34 @@
-name: Build macOS App
+name: Build macOS App with PyInstaller
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build-mac:
     runs-on: macos-latest
 
     steps:
-      - name: Checkout code
+      - name: 🧾 Checkout repo
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: 3.11
 
-      - name: Install dependencies
-        run: pip install pyinstaller cryptography
+      - name: 📦 Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pyinstaller cryptography
 
-      - name: Build app
-        run: pyinstaller --onefile --windowed secure_message_gui.py
+      - name: 🏗️ Build macOS app
+        run: |
+          pyinstaller --windowed --name "SecureMessenger" secure_message_gui.py
 
-      - name: Upload .app
-        uses: actions/upload-artifact@v3
+      - name: 📤 Upload .app bundle
+        uses: actions/upload-artifact@v4
         with:
-          name: macOS-app
-          path: dist/*
+          name: SecureMessenger-macOS-app
+          path: dist/SecureMessenger.app

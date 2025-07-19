@@ -76,7 +76,7 @@ def decrypt_message():
 
 # GUI Setup
 root = tk.Tk()
-root.title("🔐 AL secured")
+root.title("🔐 Secure Message Tool")
 root.geometry("650x600")
 root.resizable(False, False)
 
